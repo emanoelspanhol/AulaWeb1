@@ -27,12 +27,26 @@ function validacampos() {
     }
 }
 
+function mascara(teclado, mascara) {
+    // Remove qualquer caractere que não seja número
+    let valor = teclado.value.replace(/\D/g, '');
+    let resultado = '';
+    let posicao = 0;
 
-function mascara(teclado, mascara){
-    let posicao = teclado.length;
-    let saida = mascara.substring(1, 0);
-    let texto = mascara.substring(posicao);
-    if (texto.substring(0, 1) != saida){
-        teclado.value += texto.substring(0, 1);
+    // Aplica a máscara ao valor digitado
+    for (let i = 0; i < mascara.length; i++) {
+        if (mascara[i] === '#') {
+            if (posicao < valor.length) {
+                resultado += valor[posicao];
+                posicao++;
+            } else {
+                break;
+            }
+        } else {
+            resultado += mascara[i];
+        }
     }
+
+    // Define o valor do campo de texto com a máscara aplicada
+    teclado.value = resultado;
 }

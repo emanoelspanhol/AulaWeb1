@@ -17,11 +17,10 @@ function validacampos() {
         elemento2.style.border = "2px solid green";
     } if ((elemento3.value.length < 3) ||
             (elemento3.value.indexOf('@') == -1) ||
-            (elemento3.value.indexOF('.com') == -1)) {
+            (elemento3.value.indexOf('.com') == -1)) {
         elemento3.focus();
         elemento3.style.border = "2px solid red";
         elemento3.style.outline = "0";
-        console.log(elemento3);
     } else {
         elemento3.style.border = "2px solid green";
     }
@@ -48,5 +47,21 @@ function mascara(teclado, mascara) {
     }
 
     // Define o valor do campo de texto com a máscara aplicada
+   
     teclado.value = resultado;
+}
+
+function consultaCEP(cep){
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("rua").value=data.logradouro;
+            document.getElementById("bairro").value=data.bairro;
+            document.getElementById("cidade").value=data.localidade;
+            document.getElementById("estado").value=data.uf;
+
+        })
+        .catch(error => console.error(error));
 }
